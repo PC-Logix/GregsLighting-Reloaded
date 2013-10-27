@@ -122,7 +122,7 @@
 		</copy>
 		<copy todir="${classes.dir}/assets/gcewing.lighting.ic2">
 			<fileset dir="assets/gcewing_gcewing.lighting.ic2" />
-		</copy>j
+		</copy>
 		
 		<!-- Copy resources -->
 		<copy todir="${classes.dir}">
