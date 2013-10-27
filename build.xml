@@ -118,10 +118,10 @@
 		</copy>
 		<!-- Copy resources -->
 		<copy todir="${classes.dir}/assets/gcewing.lighting">
-			<fileset dir="assets/gcewing_gcewing.lighting" />
+			<fileset dir="assets/gcewing.lighting" />
 		</copy>
 		<copy todir="${classes.dir}/assets/gcewing.lighting.ic2">
-			<fileset dir="assets/gcewing_gcewing.lighting.ic2" />
+			<fileset dir="assets/gcewing.lighting.ic2" />
 		</copy>
 		
 		<!-- Copy resources -->
