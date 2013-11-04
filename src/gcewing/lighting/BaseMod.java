@@ -344,6 +344,7 @@ public class BaseMod implements IGuiHandler {
 						result.add(name.substring(prefix.length()));
 					}
 				}
+				jar.close();
 			}
 			else
 				throw new RuntimeException("Resource URL protocol " + protocol + " not supported");
