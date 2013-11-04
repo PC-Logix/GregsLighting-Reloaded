@@ -29,19 +29,19 @@ public class TEFloodlightIC2 extends TileEntity implements IEnergySink, IWrencha
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		energy = nbt.getInteger("energy");
-		addedToEnergyNet = nbt.getBoolean("addedToEnergyNet");
+		//addedToEnergyNet = nbt.getBoolean("addedToEnergyNet");
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setInteger("energy", energy);
-		nbt.setBoolean("addedToEnergyNet", addedToEnergyNet);
+		//nbt.setBoolean("addedToEnergyNet", addedToEnergyNet);
 	}
 	
     @Override
     public void onChunkUnload() {
-    	EnergyTileUnloadEvent unloadEvent = new EnergyTileUnloadEvent(this);
+    	invalidate();
     }
 	
 
@@ -87,15 +87,14 @@ public class TEFloodlightIC2 extends TileEntity implements IEnergySink, IWrencha
 		if (!worldObj.isRemote) {
 			//System.out.printf("TEFloodlightIC2.updateEntity: %s addedToEnergyNet = %s\n", this, addedToEnergyNet);
 			if (!this.addedToEnergyNet) {
-				//System.out.printf("TEFloodlightIC2.updateEntity: adding to energy net\n");
+				System.out.printf("TEFloodlightIC2.updateEntity: adding to energy net\n");
 				//EnergyNet.getForWorld(worldObj).addTileEntity(this);
 				MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 				this.addedToEnergyNet = true;
 				onInventoryChanged();
 			}
 			if (isActive()) {
-				//System.out.printf("TEFloodlightIC2.updateEntity: using %d energy from %d\n",
-				//	energyUsedPerTick, energy);
+				//System.out.printf("TEFloodlightIC2.updateEntity: using %d energy from %d\n", energyUsedPerTick, energy);
 				energy -= energyUsedPerTick;
 				if (energy < 0)
 					energy = 0;
@@ -104,12 +103,11 @@ public class TEFloodlightIC2 extends TileEntity implements IEnergySink, IWrencha
 					updateBlock();
 			}
 		}
+		super.updateEntity();
 	}
 	
 	public void invalidate() {
 		if (addedToEnergyNet) {
-			//System.out.printf("TEFloodlightIC2.invalidate: removing %s from energy net\n", this);
-			//EnergyNet.getForWorld(worldObj).removeTileEntity(this);
 			MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
 			addedToEnergyNet = false;
 			onInventoryChanged();
