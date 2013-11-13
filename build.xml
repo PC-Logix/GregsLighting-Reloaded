@@ -81,7 +81,6 @@
 		</exec>
 
 	</target>
-
 	<target name="compile" depends="initialize-version,setup">
 
 		<delete dir="${classes.dir}"/>
